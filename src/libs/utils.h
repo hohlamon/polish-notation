@@ -2,7 +2,6 @@
 #define UTILS_H
 #define WIDTH 80
 #define HIGHT 25
-#include <math.h>
 
 
 void print_graph(char ** matrix);
