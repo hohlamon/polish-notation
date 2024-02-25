@@ -21,13 +21,14 @@ void stack_push(struct Stack * stack, char* new_operand){
 
 char * stack_pop(struct Stack * stack){
     char * value = NULL;
-    //struct Node * temp;
+    struct Node * temp;
     if (stack->amount > 0){
         value = stack->top ->operand;
         stack->amount--;
-       // temp = stack.top;
+        temp = stack->top;
         stack->top = stack->top->next;
-        //free(temp);
+        free(temp);
+        //don't forget to free node.operand!!!
 
 
     }
