@@ -12,15 +12,31 @@ char* parse_string(char * string){
     struct Stack stack = init_stack();
     char * buffer = (char*)malloc(sizeof(char)* 10);
     char * output = (char*)malloc(sizeof(char)* 100);
-    //int flag_num = 0;
+    int flag_num = 0;
     int len = strlen(string);
     for (int i = 0; i < len; i++){
         if (is_number(string[i])){
-            buffer[0] = string[i];
+            int tmp_i = i;
+            while(is_number(string[tmp_i])){
+                buffer[flag_num] = string[tmp_i];
+                flag_num++;
+                tmp_i++;
+               
+            }
+            buffer[flag_num++] = ' ';
+            buffer[flag_num++] = '\0';
+            i = tmp_i-1;
+            flag_num = 0;
+            printf("current i is %d\n", i);
+            strcat(output, buffer);
+            printf("%s.\n", buffer);
+            printf("%s\n", output);
+
+            /*buffer[0] = string[i];
             buffer[1] = ' ';
             buffer[2] = '\0';
             strcat(output, buffer);
-            printf("%s\n", buffer);
+            printf("%s\n", buffer);*/
             
         }
         else if (string[i]=='x')
