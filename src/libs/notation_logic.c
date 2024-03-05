@@ -43,10 +43,24 @@ char* parse_string(char * string){
             strcat(output, "x ");
         else if (is_operation(string[i])){
             char * buffer_2 = (char*)malloc(sizeof(char)* 6);
+            if (string[i] == 's'|| string[i] == 'c'){
+                int tmp_i = i;
+                if ((string[tmp_i+1]== 'i'&& string[tmp_i+2]== 'n')|| (string[tmp_i+1]== 'o'&& string[tmp_i+2] == 's')){
+                    buffer_2[0] = string[i];
+                    buffer_2[1] = string[tmp_i+1];
+                    buffer_2[2] = string[tmp_i+2]; 
+                    buffer_2[3] = ' ';
+                    buffer_2[4] = '\0';
+                    i += 2;
+                }
+            }
+            else{
+
             buffer_2[0]=string[i];
             buffer_2[1] = ' ';
             buffer_2[2] = '\0';
-            printf("%s\n", buffer_2);
+            printf("%s\n", buffer_2);}
+
             if (stack.top !=NULL){
                 while(stack.top !=NULL && check_priority(stack.top->operand) >= check_priority(buffer_2)){
                     strcat(output,stack_pop(&stack));
@@ -107,7 +121,7 @@ int is_number(char operand){
 }
 int is_operation(char operand){
     int res = 0;
-    if (operand == '+' || operand == '-' || operand == '*'|| operand == '/'|| operand == '^')
+    if (operand == '+' || operand == '-' || operand == '*'|| operand == '/'|| operand == '^'||operand == 's'||operand == 'c')
         res = 1;
     return res;
 }
