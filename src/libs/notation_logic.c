@@ -59,10 +59,11 @@ char* parse_string(char * string){
             buffer_2[0]=string[i];
             buffer_2[1] = ' ';
             buffer_2[2] = '\0';
-            printf("%s\n", buffer_2);}
+            printf("%s\n", buffer_2);
+            }
 
             if (stack.top !=NULL){
-                while(stack.top !=NULL && check_priority(stack.top->operand) >= check_priority(buffer_2)){
+                while(stack.top !=NULL && strcmp(stack.top->operand, "( ") != 0 && check_priority(stack.top->operand) >= check_priority(buffer_2)){
                     strcat(output,stack_pop(&stack));
                     //strcat(output, " ");
                 }
@@ -75,10 +76,18 @@ char* parse_string(char * string){
                 printf("stack in %s\n", stack.top->operand);
             }
         }
+        else if (string[i]==')'){
+            char* tmp_buffer;
+            while(strcmp((tmp_buffer = stack_pop(&stack)), "( " )!= 0){
+            printf("stack out %s\n", tmp_buffer);
+            strcat(output,tmp_buffer);
+
+
+        }
 
             
 
-    
+        }
     }
     free(buffer);
     while((buffer = stack_pop(&stack))!= NULL){
@@ -109,6 +118,9 @@ int check_priority(char * operation){
         value = 3;
     else if (strcmp(operation, "^ ") == 0)
         value = 4;
+    else if (strcmp(operation, "( ") == 0)
+        value = 5;    
+    
     return value;
 }
 
@@ -121,7 +133,7 @@ int is_number(char operand){
 }
 int is_operation(char operand){
     int res = 0;
-    if (operand == '+' || operand == '-' || operand == '*'|| operand == '/'|| operand == '^'||operand == 's'||operand == 'c')
+    if (operand == '+' || operand == '-' || operand == '*'|| operand == '/'|| operand == '^'||operand == 's'||operand == 'c'|| operand == '(')
         res = 1;
     return res;
 }
