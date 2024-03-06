@@ -144,25 +144,25 @@ float calc_string(float x, char * string){
     float result;
     struct Stack_int stack = init_stack_int();
     char * buffer = (char*)malloc(sizeof(char)* 10);
-    printf("start calculation\n");
+    //printf("start calculation\n");
     for (int i = 0; i < len; i++){
         if (string[i] == ' '){
             if (is_number(string[i-1])){
                 buffer[buffer_num] = '\0';
                 stack_push_int(&stack,char_2_float(buffer));
-                printf(" buffer is %s.\n", buffer);
-                printf(" stack top  is %f.\n", stack.top ->operand);
+                //printf(" buffer is %s.\n", buffer);
+                //printf(" stack top  is %f.\n", stack.top ->operand);
             }
             else if(string[i-1]=='x'){
                 stack_push_int(&stack, x);
-                printf(" buffer is %s.\n", buffer);
-                printf(" stack top  is %f.\n", stack.top ->operand);
+                //printf(" buffer is %s.\n", buffer);
+                //printf(" stack top  is %f.\n", stack.top ->operand);
             }
             else{
                 buffer[buffer_num] = '\0';
                 make_operation(&stack, buffer);
-                printf(" buffer is %s.\n", buffer);
-                printf(" stack top  is %f.\n", stack.top ->operand);
+                //printf(" buffer is %s.\n", buffer);
+                //printf(" stack top  is %f.\n", stack.top ->operand);
             }
             //buffer[buffer_num] = '\0';
             buffer_num = 0;

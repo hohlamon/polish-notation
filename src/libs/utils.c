@@ -3,6 +3,8 @@
 #include <math.h>
 
 #include "utils.h"
+#include "stack.h"
+#include "notation_logic.h"
 
 
 void print_graph(char ** matrix){
@@ -17,18 +19,18 @@ void print_graph(char ** matrix){
     }
 }
 
-float func(float x){
+/*float func(float x){
     return cos(x);
     
 
-}
+}*/
 
-void build_graph(char ** matrix){
+void build_graph(char ** matrix, char * string){
     float step_x = 13./ WIDTH;
     float step_y = 2./ HIGHT;
     for (int i = 0; i < HIGHT; i++){
         for (int j = 0; j < WIDTH; j++){
-            if (round(func(j * step_x)*10) == round((-1 + i * step_y) * 10))
+            if (round(calc_string(j * step_x, string)*10) == round((-1 + i * step_y) * 10))
                 matrix[i][j] = '*';
             else
                 matrix[i][j] = ' ';
