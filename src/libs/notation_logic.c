@@ -137,3 +137,85 @@ int is_operation(char operand){
         res = 1;
     return res;
 }
+
+float calc_string(float x, char * string){
+    int len = strlen(string);
+    int buffer_num = 0;
+    float result;
+    struct Stack_int stack = init_stack_int();
+    char * buffer = (char*)malloc(sizeof(char)* 10);
+    printf("start calculation\n");
+    for (int i = 0; i < len; i++){
+        if (string[i] == ' '){
+            if (is_number(string[i-1])){
+                buffer[buffer_num] = '\0';
+                stack_push_int(&stack,char_2_float(buffer));
+                printf(" buffer is %s.\n", buffer);
+                printf(" stack top  is %f.\n", stack.top ->operand);
+            }
+            else if(string[i-1]=='x'){
+                stack_push_int(&stack, x);
+                printf(" buffer is %s.\n", buffer);
+                printf(" stack top  is %f.\n", stack.top ->operand);
+            }
+            else{
+                buffer[buffer_num] = '\0';
+                make_operation(&stack, buffer);
+                printf(" buffer is %s.\n", buffer);
+                printf(" stack top  is %f.\n", stack.top ->operand);
+            }
+            //buffer[buffer_num] = '\0';
+            buffer_num = 0;
+            continue;
+        }
+        buffer[buffer_num] = string[i];
+        buffer_num++;
+
+
+    }
+    result = stack_pop_int(&stack);
+    return result;
+
+
+
+}
+
+float char_2_float(char * operand){
+    float res = 0;
+    int len = strlen(operand);
+    for(int i = 0; i < len; i++){
+        res += pow(10, len - i - 1)*(float)(operand[i] - '0');
+    }
+
+    return res;
+
+}
+
+void make_operation(struct Stack_int * stack, char * buffer){
+    float operand_1 = stack_pop_int(stack);
+    if (strcmp(buffer, "sin") == 0)
+        stack_push_int(stack, sin(operand_1));
+    else if (strcmp(buffer, "cos") == 0)
+        stack_push_int(stack, cos(operand_1));
+    else if(buffer[0] == '+'){
+        float operand_2 = stack_pop_int(stack);
+        stack_push_int(stack, operand_1 + operand_2);
+    }
+    else if(buffer[0] == '-'){
+        float operand_2 = stack_pop_int(stack);
+        stack_push_int(stack, operand_1 - operand_2);
+    }
+    else if(buffer[0] == '*'){
+        float operand_2 = stack_pop_int(stack);
+        stack_push_int(stack, operand_1 * operand_2);
+    }
+    else if(buffer[0] == '/'){
+        float operand_2 = stack_pop_int(stack);
+        stack_push_int(stack, operand_1 / operand_2);
+    }
+    else if(buffer[0] == '^'){
+        float operand_2 = stack_pop_int(stack);
+        stack_push_int(stack, pow(operand_1, operand_2));
+    }
+
+}
