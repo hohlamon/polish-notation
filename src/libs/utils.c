@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "notation_logic.h"
 #include "stack.h"
+#include "notation_logic.h"
 #include "utils.h"
 
 void print_graph(char **matrix) {

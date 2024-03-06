@@ -3,8 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "notation_logic.h"
 #include "stack.h"
+#include "notation_logic.h"
+
 
 char *parse_string(char *string) {
   struct Stack stack = init_stack();
@@ -25,10 +26,10 @@ char *parse_string(char *string) {
       buffer[flag_num++] = '\0';
       i = tmp_i - 1;
       flag_num = 0;
-      printf("current i is %d\n", i);
+      //printf("current i is %d\n", i);
       strcat(output, buffer);
-      printf("%s.\n", buffer);
-      printf("%s\n", output);
+      //printf("%s.\n", buffer);
+      //printf("%s\n", output);
 
       /*buffer[0] = string[i];
       buffer[1] = ' ';
@@ -56,7 +57,7 @@ char *parse_string(char *string) {
         buffer_2[0] = string[i];
         buffer_2[1] = ' ';
         buffer_2[2] = '\0';
-        printf("%s\n", buffer_2);
+        //printf("%s\n", buffer_2);
       }
 
       if (stack.top != NULL) {
@@ -67,15 +68,15 @@ char *parse_string(char *string) {
           // strcat(output, " ");
         }
         stack_push(&stack, buffer_2);
-        printf("stack in %s\n", stack.top->operand);
+        //printf("stack in %s\n", stack.top->operand);
 
       } else {
         stack_push(&stack, buffer_2);
-        printf("stack in %s\n", stack.top->operand);
+        //printf("stack in %s\n", stack.top->operand);
       }
     } else if (string[i] == ')') {
       while (strcmp((tmp_buffer = stack_pop(&stack)), "( ") != 0) {
-        printf("stack out %s\n", tmp_buffer);
+        //printf("stack out %s\n", tmp_buffer);
         strcat(output, tmp_buffer);
         free(tmp_buffer);
       }
@@ -84,7 +85,7 @@ char *parse_string(char *string) {
   }
   free(buffer);
   while ((buffer = stack_pop(&stack)) != NULL) {
-    printf("stack out %s\n", buffer);
+    //printf("stack out %s\n", buffer);
     strcat(output, buffer);
     free(buffer);
     // strcat(output, " ");
