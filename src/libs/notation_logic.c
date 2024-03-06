@@ -12,6 +12,7 @@ char* parse_string(char * string){
     struct Stack stack = init_stack();
     char * buffer = (char*)malloc(sizeof(char)* 10);
     char * output = (char*)malloc(sizeof(char)* 100);
+    char * tmp_buffer;
     int flag_num = 0;
     int len = strlen(string);
     for (int i = 0; i < len; i++){
@@ -64,7 +65,8 @@ char* parse_string(char * string){
 
             if (stack.top !=NULL){
                 while(stack.top !=NULL && strcmp(stack.top->operand, "( ") != 0 && check_priority(stack.top->operand) >= check_priority(buffer_2)){
-                    strcat(output,stack_pop(&stack));
+                    strcat(output, (tmp_buffer = stack_pop(&stack)));
+                    free(tmp_buffer);
                     //strcat(output, " ");
                 }
                 stack_push(&stack, buffer_2);
@@ -77,14 +79,14 @@ char* parse_string(char * string){
             }
         }
         else if (string[i]==')'){
-            char* tmp_buffer;
             while(strcmp((tmp_buffer = stack_pop(&stack)), "( " )!= 0){
             printf("stack out %s\n", tmp_buffer);
             strcat(output,tmp_buffer);
+            free(tmp_buffer);
 
 
         }
-
+        free(tmp_buffer);
             
 
         }
@@ -93,8 +95,10 @@ char* parse_string(char * string){
     while((buffer = stack_pop(&stack))!= NULL){
         printf("stack out %s\n", buffer);
         strcat(output,buffer);
+        free(buffer);
         //strcat(output, " ");
     }
+    
 
 
     return output;
@@ -174,6 +178,7 @@ float calc_string(float x, char * string){
 
     }
     result = stack_pop_int(&stack);
+    free(buffer);
     return result;
 
 

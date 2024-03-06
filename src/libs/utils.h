@@ -6,11 +6,12 @@
 
 void print_graph(char ** matrix);
 
-float func(float x);
 
 void build_graph(char ** matrix, char * string);
 
 
 char ** init_matrix();
+
+void free_matrix(char** matrix);
 
 #endif

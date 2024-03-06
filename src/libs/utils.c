@@ -19,11 +19,7 @@ void print_graph(char ** matrix){
     }
 }
 
-/*float func(float x){
-    return cos(x);
-    
 
-}*/
 
 void build_graph(char ** matrix, char * string){
     float step_x = 13./ WIDTH;
@@ -45,6 +41,13 @@ char ** init_matrix(){
         matrix[i] = (char*)malloc(sizeof(char) * WIDTH);
     }
     return matrix;
+}
+
+void free_matrix(char** matrix){
+    for (int i = 0; i < HIGHT; i++){
+        free(matrix[i]);
+    }
+    free(matrix);
 }
 
 
