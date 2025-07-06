@@ -43,8 +43,9 @@ This will create an executable file in the `../build/` directory.
 To plot a function, run the executable with the function as an argument. For example:
 
 ```shell
-../build/main "2*sin(x)"
+../build/main"
 ```
+then insert the math fucntion, ex.  "2*sin(x)"
 
 ### Clean Up
 
